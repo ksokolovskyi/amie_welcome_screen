@@ -1,0 +1,32 @@
+name: amie_welcome_screen
+description: "Amie Welcome Screen"
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=3.4.1 <4.0.0'
+
+dependencies:
+  equatable: ^2.0.5
+  flame: ^1.18.0
+  flame_forge2d: ^0.18.1
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^5.1.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/avatar.png
+    - assets/images/google.png
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
