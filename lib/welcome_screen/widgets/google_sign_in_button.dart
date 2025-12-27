@@ -14,11 +14,14 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton>
     vsync: this,
   );
 
-  late final _scale = Tween<double>(begin: 1, end: 0.95).animate(_controller);
+  late final Animation<double> _scale = Tween<double>(
+    begin: 1,
+    end: 0.95,
+  ).animate(_controller);
 
-  late final _color = ColorTween(
+  late final Animation<Color?> _color = ColorTween(
     begin: const Color(0xFFE5E5E4),
-    end: const Color(0xFFE5E5E4).withOpacity(0.8),
+    end: const Color(0xFFE5E5E4).withValues(alpha: 0.8),
   ).animate(_controller);
 
   @override
@@ -44,7 +47,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton>
       onTapCancel: _onTapUp,
       child: MatrixTransition(
         animation: _scale,
-        onTransform: (scale) => Matrix4.identity()..scale(scale),
+        onTransform: (scale) =>
+            Matrix4.identity()..scaleByDouble(scale, scale, 1, 1),
         child: DecoratedBox(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(8)),

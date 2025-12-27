@@ -18,7 +18,6 @@ class ReactionsOverlay extends StatefulWidget {
   static ReactionsOverlayState of(BuildContext context) {
     final state = context.findAncestorStateOfType<ReactionsOverlayState>();
 
-    // ignore: prefer_asserts_with_message
     assert(() {
       if (state == null) {
         throw FlutterError.fromParts(<DiagnosticsNode>[
@@ -126,9 +125,9 @@ class _Reaction extends StatefulWidget {
     required this.initialPosition,
     required this.onAnimationCompleted,
   }) : assert(
-          emojis.length < 5,
-          '$_Reaction is designed to show not more than 4 emojis.',
-        );
+         emojis.length < 5,
+         '$_Reaction is designed to show not more than 4 emojis.',
+       );
 
   /// List of emoji to show.
   final List<String> emojis;
@@ -145,8 +144,8 @@ class _Reaction extends StatefulWidget {
 }
 
 class _ReactionState extends State<_Reaction> with TickerProviderStateMixin {
-  static const _startAngle = 3 * math.pi / 4;
-  static const _stepAngle = math.pi / 3;
+  static const double _startAngle = 3 * math.pi / 4;
+  static const double _stepAngle = math.pi / 3;
 
   final _random = math.Random();
 
@@ -207,22 +206,23 @@ class _ReactionState extends State<_Reaction> with TickerProviderStateMixin {
             .animate(_appearanceController),
       );
 
-      final radius =
-          widget.emojis.length == 1 ? 0.8 : 0.8 + 0.5 * _random.nextDouble();
+      final radius = widget.emojis.length == 1
+          ? 0.8
+          : 0.8 + 0.5 * _random.nextDouble();
 
       final angle = i == 0
           ? previousAngle - (_stepAngle * _random.nextDouble())
           : previousAngle -
-              _stepAngle -
-              (_stepAngle / 2 * _random.nextDouble());
+                _stepAngle -
+                (_stepAngle / 2 * _random.nextDouble());
 
       previousAngle = angle;
 
       _slide.add(
         Tween<Offset>(
-          begin: Offset.zero,
-          end: _polarToCartesian(radius: radius, angle: angle),
-        )
+              begin: Offset.zero,
+              end: _polarToCartesian(radius: radius, angle: angle),
+            )
             .chain(
               CurveTween(
                 curve: const Interval(0, 0.8, curve: Curves.easeOutCirc),
@@ -233,9 +233,9 @@ class _ReactionState extends State<_Reaction> with TickerProviderStateMixin {
 
       _position.add(
         Tween<Offset>(
-          begin: widget.initialPosition,
-          end: Offset(widget.initialPosition.dx, -100),
-        )
+              begin: widget.initialPosition,
+              end: Offset(widget.initialPosition.dx, -100),
+            )
             .chain(
               CurveTween(
                 curve: Interval(

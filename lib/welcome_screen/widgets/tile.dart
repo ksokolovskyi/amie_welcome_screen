@@ -114,7 +114,10 @@ class _CheckboxState extends State<_Checkbox>
     vsync: this,
   );
 
-  late final _scale = Tween<double>(begin: 1, end: 0.9).animate(_controller);
+  late final Animation<double> _scale = Tween<double>(
+    begin: 1,
+    end: 0.9,
+  ).animate(_controller);
 
   var _isChecked = false;
 
@@ -157,7 +160,8 @@ class _CheckboxState extends State<_Checkbox>
         onTapCancel: _onTapUp,
         child: MatrixTransition(
           animation: _scale,
-          onTransform: (scale) => Matrix4.identity()..scale(scale),
+          onTransform: (scale) =>
+              Matrix4.identity()..scaleByDouble(scale, scale, 1, 1),
           child: DecoratedBox(
             decoration: _isChecked
                 ? const BoxDecoration(

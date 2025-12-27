@@ -1,4 +1,7 @@
-include: package:very_good_analysis/analysis_options.yaml
+include: package:very_good_analysis/analysis_options.10.0.0.yaml
+
+formatter:
+  trailing_commas: preserve
 
 linter:
   rules:
@@ -6,4 +9,6 @@ linter:
 
 analyzer:
   errors:
+    discarded_futures: ignore
+    prefer_asserts_with_message: ignore
     sort_constructors_first: ignore

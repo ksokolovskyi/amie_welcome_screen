@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:amie_welcome_screen/welcome_screen/welcome_screen.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flame/extensions.dart';
-import 'package:flame/game.dart';
+import 'package:flame/extensions.dart' hide Matrix4;
+import 'package:flame/game.dart' hide Matrix4;
 import 'package:flame_forge2d/flame_forge2d.dart' hide Transform;
 import 'package:flutter/material.dart';
 
@@ -79,7 +79,7 @@ class _TilesState extends ChangeNotifier {
   final Map<int, _TileConfig> _config = {};
 
   bool _hasChange = false;
-  
+
   /// Whether all tiles are configured.
   bool get isReady => _config.length == count;
 
@@ -239,13 +239,13 @@ class _BackgroundFlowDelegate extends FlowDelegate {
     final translation = Alignment.center.alongSize(config.size);
 
     final result = Matrix4.identity()
-      ..translate(translation.dx, translation.dy)
+      ..translateByDouble(translation.dx, translation.dy, 0, 1)
       ..multiply(
         Matrix4.identity()
-          ..translate(config.position.dx, config.position.dy)
+          ..translateByDouble(config.position.dx, config.position.dy, 0, 1)
           ..rotateZ(config.angle),
       )
-      ..translate(-translation.dx, -translation.dy);
+      ..translateByDouble(-translation.dx, -translation.dy, 0, 1);
 
     return result;
   }
@@ -261,11 +261,11 @@ class _BackgroundSimulation extends Forge2DGame {
 
   _BackgroundSimulation({
     required _TilesState tilesState,
-  })  : _tilesState = tilesState,
-        super(
-          zoom: zoom,
-          gravity: Vector2.zero(),
-        );
+  }) : _tilesState = tilesState,
+       super(
+         zoom: zoom,
+         gravity: Vector2.zero(),
+       );
 
   final _random = math.Random();
 
@@ -293,6 +293,7 @@ class _BackgroundSimulation extends Forge2DGame {
   void renderTree(Canvas canvas) {}
 
   @override
+  // This doesn't call super on purpose.
   // ignore: must_call_super
   void render(Canvas canvas) {}
 
@@ -332,9 +333,9 @@ class _BackgroundSimulation extends Forge2DGame {
         final size = previousConfig.size;
 
         final position = worldToScreen(body.position).toOffset().translate(
-              -size.width / 2,
-              -size.height / 2,
-            );
+          -size.width / 2,
+          -size.height / 2,
+        );
 
         final config = previousConfig.copyWith(
           position: position,
@@ -355,14 +356,18 @@ class _BackgroundSimulation extends Forge2DGame {
     final visibleRect = camera.visibleWorldRect;
     const translation = 1.0;
 
-    final topLeft =
-        visibleRect.topLeft.translate(-translation, -translation).toVector2();
-    final topRight =
-        visibleRect.topRight.translate(translation, -translation).toVector2();
-    final bottomRight =
-        visibleRect.bottomRight.translate(translation, translation).toVector2();
-    final bottomLeft =
-        visibleRect.bottomLeft.translate(-translation, translation).toVector2();
+    final topLeft = visibleRect.topLeft
+        .translate(-translation, -translation)
+        .toVector2();
+    final topRight = visibleRect.topRight
+        .translate(translation, -translation)
+        .toVector2();
+    final bottomRight = visibleRect.bottomRight
+        .translate(translation, translation)
+        .toVector2();
+    final bottomLeft = visibleRect.bottomLeft
+        .translate(-translation, translation)
+        .toVector2();
 
     _createBoundary(start: topLeft, end: topRight);
     _createBoundary(start: topRight, end: bottomRight);

@@ -56,7 +56,7 @@ class _MessageBubbleState extends State<MessageBubble>
         onTransform: (scale) {
           return Matrix4.identity()
             ..rotateZ(math.pi / 14)
-            ..scale(scale);
+            ..scaleByDouble(scale, scale, 1, 1);
         },
         child: const DecoratedBox(
           decoration: BoxDecoration(

@@ -180,7 +180,8 @@ class _ForegroundPartsLayoutDelegate extends MultiChildLayoutDelegate {
       _ForegroundPart.button,
       constraints.tighten(width: maxWidth),
     );
-    final buttonRect = Offset(
+    final buttonRect =
+        Offset(
           padding.left,
           termsAndConditionsTextRect.top - buttonSize.height - 8,
         ) &
@@ -191,7 +192,8 @@ class _ForegroundPartsLayoutDelegate extends MultiChildLayoutDelegate {
     );
 
     final promoTextSize = layoutChild(_ForegroundPart.promoText, constraints);
-    final promoTextRect = Offset(
+    final promoTextRect =
+        Offset(
           padding.left,
           buttonRect.top - promoTextSize.height - 18,
         ) &
@@ -205,7 +207,8 @@ class _ForegroundPartsLayoutDelegate extends MultiChildLayoutDelegate {
       _ForegroundPart.meetAmieText,
       constraints,
     );
-    final meetAmieTextRect = Offset(
+    final meetAmieTextRect =
+        Offset(
           padding.left,
           promoTextRect.top - meetAmieTextSize.height,
         ) &
@@ -219,7 +222,8 @@ class _ForegroundPartsLayoutDelegate extends MultiChildLayoutDelegate {
       _ForegroundPart.amieText,
       constraints,
     );
-    final amieTextRect = Offset(
+    final amieTextRect =
+        Offset(
           padding.left,
           meetAmieTextRect.top - amieTextSize.height - 10,
         ) &
@@ -233,7 +237,8 @@ class _ForegroundPartsLayoutDelegate extends MultiChildLayoutDelegate {
       _ForegroundPart.arrow,
       constraints,
     );
-    final arrowRect = meetAmieTextRect.centerRight.translate(
+    final arrowRect =
+        meetAmieTextRect.centerRight.translate(
           arrowSize.width / 4.3,
           -arrowSize.height * 1.2,
         ) &
@@ -247,7 +252,8 @@ class _ForegroundPartsLayoutDelegate extends MultiChildLayoutDelegate {
       _ForegroundPart.messageBubble,
       constraints.copyWith(maxWidth: size.width - 16),
     );
-    final messageBubbleRect = arrowRect.topRight.translate(
+    final messageBubbleRect =
+        arrowRect.topRight.translate(
           -messageBubbleSize.width / 2.4,
           -messageBubbleSize.height - 24,
         ) &
